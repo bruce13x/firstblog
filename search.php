@@ -1,18 +1,21 @@
 <?php require_once 'header.php'; ?>
-<?php //var_dump(deleteArticle(6)); ?>
-<h1 class="my-4">Recent articles
-      </h1>
+<?php $resSearch = mySearch($_GET['search']);
+//var_dump($resSearch);
+?>
+<!-- Page Heading -->
+<?php if (is_array($resSearch) && !empty($resSearch)):?>
+<h1 class="my-4">
+ <?php echo 'Results for: '.$_GET['search']; ?></h1>
+<?php endif;?>
 <div class="row">
 
 <?php include 'sidebar.php'; ?>
+
     <div class="col-md-10">
-      <!-- Page Heading -->
-      
-      
-  		<?php $articles = getArticles(); ?>
-  		<?php if (is_array($articles) && !empty($articles)): ?>
+
+<?php if (is_array($resSearch) && !empty($resSearch)): ?>
         <div class="row">
-	  		<?php foreach ($articles as $article): ?>
+	  		<?php foreach ($resSearch as $article): ?>
 		        <div class="col-lg-4 col-md-4 portfolio-item">
 		          <div class="card h-100">
 		            <!--<a href="single.php?article=<?php echo $article['id']; ?>"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>-->
@@ -32,8 +35,7 @@
         <?php else: ?>
         	<p class="card-text"><?php displayNotFoundText(); ?></p>
     	<?php endif; ?>
-    </div> <!-- / content> -->  
-</div>      <!-- /.row -->
+    </div> <!-- / content> --> 
+</div><!-- /.row -->
 
-      
 <?php require_once 'footer.php'; ?>
